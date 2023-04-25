@@ -1,10 +1,10 @@
 use std::path::PathBuf;
 
-pub struct Repository {
+pub struct GitRepository {
     pub(crate) path: PathBuf,
 }
 
-impl Repository {
+impl GitRepository {
     pub fn new(path: PathBuf) -> Self {
         Self { path }
     }
