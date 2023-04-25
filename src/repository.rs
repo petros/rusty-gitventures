@@ -44,4 +44,10 @@ impl GitRepository {
             }
         }
     }
+
+    pub fn show_current_branch(&self) {
+        let head = self.repo.head().unwrap();
+        let branch = head.shorthand().unwrap();
+        println!("  {}", branch);
+    }
 }

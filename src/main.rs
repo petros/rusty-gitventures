@@ -25,6 +25,10 @@ fn main() {
             println!("");
             println!("List all branches...");
             git_repo.list_local_branches();
+
+            println!("");
+            println!("Show current branch...");
+            git_repo.show_current_branch();
         }
         Err(e) => {
             eprintln!("Error opening repository: {:?}", e);
