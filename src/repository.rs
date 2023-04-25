@@ -51,9 +51,13 @@ impl GitRepository {
         Ok(())
     }
 
-    pub fn show_current_branch(&self) {
-        let head = self.repo.head().unwrap();
-        let branch = head.shorthand().unwrap();
-        println!("  {}", branch);
+    pub fn show_current_branch(&self) -> Result<(), Error> {
+        let head = self.repo.head()?;
+        if let Some(branch) = head.shorthand() {
+            println!("  {}", branch);
+        } else {
+            eprintln!("HEAD is not pointing to a branch");
+        }
+        Ok(())
     }
 }

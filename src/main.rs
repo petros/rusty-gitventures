@@ -30,7 +30,9 @@ fn main() {
 
             println!("");
             println!("Show current branch...");
-            git_repo.show_current_branch();
+            if let Err(e) = git_repo.show_current_branch() {
+                eprintln!("Error showing current branch: {:?}", e);
+            }
         }
         Err(e) => {
             eprintln!("Error opening repository: {:?}", e);
