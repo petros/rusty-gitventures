@@ -13,14 +13,18 @@ fn main() {
     match GitRepository::new(path) {
         Ok(git_repo) => {
             println!(
-                "Repository opened successfully with a path of {}!",
+                "  Repository opened successfully with a path of '{}'",
                 git_repo.path().to_str().unwrap()
             );
-            println!("Path: {:?}", git_repo.repository_path());
+            println!("  Path: '{}'", git_repo.repository_path());
 
             println!("");
             println!("List all remotes...");
             git_repo.list_remotes();
+
+            println!("");
+            println!("List all branches...");
+            git_repo.list_local_branches();
         }
         Err(e) => {
             eprintln!("Error opening repository: {:?}", e);
