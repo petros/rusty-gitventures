@@ -1,3 +1,5 @@
+![Rust action status](https://github.com/petros/rusty-gitventures/actions/workflows/rust.yml/badge.svg)
+
 # Rusty Gitventures
 
 I created this repository just to experiment with the `git2` crate. I'm considering implementing a simple git client in Rust, just for fun.
