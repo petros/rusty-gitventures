@@ -24,7 +24,9 @@ fn main() {
 
             println!("");
             println!("List all branches...");
-            git_repo.list_local_branches();
+            if let Err(e) = git_repo.list_local_branches() {
+                eprintln!("Error listing local branches: {:?}", e);
+            }
 
             println!("");
             println!("Show current branch...");

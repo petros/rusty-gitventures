@@ -1,4 +1,5 @@
 use git2::Repository;
+use git2::{BranchType, Error};
 use std::path::PathBuf;
 
 pub struct GitRepository {
@@ -35,14 +36,19 @@ impl GitRepository {
         }
     }
 
-    pub fn list_local_branches(&self) {
-        let branches = self.repo.branches(None).unwrap();
+    pub fn list_local_branches(&self) -> Result<(), Error> {
+        let branches = self.repo.branches(None)?;
+
         for branch in branches {
-            let (branch, branch_type) = branch.unwrap();
-            if branch_type == git2::BranchType::Local {
-                println!("  {}", branch.name().unwrap().unwrap());
+            let (branch, branch_type) = branch?;
+            if branch_type == BranchType::Local {
+                if let Some(name) = branch.name()? {
+                    println!("  {}", name);
+                }
             }
         }
+
+        Ok(())
     }
 
     pub fn show_current_branch(&self) {
