@@ -56,7 +56,7 @@ impl GitRepository {
         if let Some(branch) = head.shorthand() {
             println!("  {}", branch);
         } else {
-            eprintln!("HEAD is not pointing to a branch");
+            eprintln!("The current branch is not a valid UTF-8 string.");
         }
         Ok(())
     }
