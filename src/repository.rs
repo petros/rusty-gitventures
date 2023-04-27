@@ -60,4 +60,34 @@ impl GitRepository {
         }
         Ok(())
     }
+
+    pub fn show_status(&self) -> Result<(), Error> {
+        let statuses = self.repo.statuses(None)?;
+        for entry in statuses.iter() {
+            let status = entry.status();
+            let status_description = self.status_description(status);
+            let path = entry.path().unwrap();
+            println!("  {} - {}", path, status_description);
+        }
+        Ok(())
+    }
+
+    fn status_description(&self, status: git2::Status) -> &'static str {
+        match status {
+            git2::Status::CURRENT => "current",
+            git2::Status::INDEX_NEW => "new in index",
+            git2::Status::INDEX_MODIFIED => "modified in index",
+            git2::Status::INDEX_DELETED => "deleted from index",
+            git2::Status::INDEX_RENAMED => "renamed in index",
+            git2::Status::INDEX_TYPECHANGE => "typechange in index",
+            git2::Status::WT_NEW => "new in working tree",
+            git2::Status::WT_MODIFIED => "modified in working tree",
+            git2::Status::WT_DELETED => "deleted from working tree",
+            git2::Status::WT_TYPECHANGE => "typechange in working tree",
+            git2::Status::WT_RENAMED => "renamed in working tree",
+            git2::Status::IGNORED => "ignored",
+            git2::Status::CONFLICTED => "conflicted",
+            _ => "unknown",
+        }
+    }
 }
