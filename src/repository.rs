@@ -74,18 +74,32 @@ impl GitRepository {
 
     fn status_description(&self, status: git2::Status) -> &'static str {
         match status {
+            // No changes
             git2::Status::CURRENT => "current",
+            // A new file has been added to the index.
             git2::Status::INDEX_NEW => "new in index",
+            // A file in the index has been modified.
             git2::Status::INDEX_MODIFIED => "modified in index",
+            // A file has been deleted from the index.
             git2::Status::INDEX_DELETED => "deleted from index",
+            // A file in the index has been renamed.
             git2::Status::INDEX_RENAMED => "renamed in index",
+            // A file in the index had had its type changed, e.g., from a regular file to a symbolic link.
             git2::Status::INDEX_TYPECHANGE => "typechange in index",
+            // A new file exists in the working directory but is not yet tracked in the index.
             git2::Status::WT_NEW => "new in working tree",
+            // A tracked file in the working directory has been modified but not yet staged.
             git2::Status::WT_MODIFIED => "modified in working tree",
+            // A tracked file has been deleted from the working directory but not yet removed from the index.
             git2::Status::WT_DELETED => "deleted from working tree",
+            // A tracked file in the working directory has had its type changed but not yet staged,
+            // e.g., from a regular file to a symbolic link.
             git2::Status::WT_TYPECHANGE => "typechange in working tree",
+            // A tracked file in the working directory has been renamed but not yet staged.
             git2::Status::WT_RENAMED => "renamed in working tree",
+            // The file is ignored, typically based on the rules in the `.gitignore` file.
             git2::Status::IGNORED => "ignored",
+            // The file has a conflict between the index and the working directory, usually due to a merge conflict.
             git2::Status::CONFLICTED => "conflicted",
             _ => "unknown",
         }
